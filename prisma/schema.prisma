@@ -11,7 +11,7 @@ datasource db {
 
 model Profile{
   id String @id @default(uuid())
-  userID String @unique
+  userId String @unique
   name String
   imageUrl String @db.Text
   email String @db.Text
@@ -32,8 +32,8 @@ model Server{
   imageUrl String @db.Text
   inviteCode String @db.Text
 
-  profileID String
-  profile Profile @relation(fields: [profileID], references: [id], onDelete: Cascade)
+  profileId String
+  profile Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
 
   members Member[]
 
@@ -42,7 +42,7 @@ model Server{
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@index([profileID])
+  @@index([profileId])
 }
 
 enum MemberRole { 
@@ -55,8 +55,8 @@ model Member{
   id String @id @default(uuid())
   role MemberRole @default(GUEST)
 
-  profileID String
-  profile Profile @relation(fields: [profileID], references: [id],  onDelete: Cascade)
+  profileId String
+  profile Profile @relation(fields: [profileId], references: [id],  onDelete: Cascade)
 
   serverId String
   server Server @relation(fields: [serverId], references: [id], onDelete: Cascade)
@@ -64,7 +64,7 @@ model Member{
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@index([profileID])
+  @@index([profileId])
   @@index([serverId])
 }
 
